@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Caren Houses Embu</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <nav class="nav">
+      <div class="brand">Caren Houses Embu</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+      </div>
+    </nav>
+
+    <main class="hero">
+      <section class="left">
+        <h1>Find a place around University of Embu</h1>
+        <p>
+          Campus-side homes handpicked for convenience. Good for morning
+          classes, late-night study groups and a short commute to the cafeteria.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="signup.html" target="_blank">Sign Up</a>
+          <a class="btn" href="login.html" target="_blank">Log In</a>
+        </div>
+      </section>
+
+      <aside class="right">
+        <h3>Quick Access</h3>
+        <div class="info-list" style="margin-top: 12px">
+          <div class="info">
+            <strong>Ownership:</strong>
+            <div>Caren Houses</div>
+          </div>
+          <div class="info">
+            <strong>Available:</strong>
+            <div>20 Apartments</div>
+          </div>
+          <div class="info">
+            <strong>Areas:</strong>
+            <div>Kangaru, Iveche, Blue Valley...</div>
+          </div>
+          <div class="info">
+            <strong>Support:</strong>
+            <div>housing@carenhouses.org</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 16px">
+          <p style="margin: 0 0 8px">Search by area</p>
+          <select
+            id="areaSelect"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid #d6e4fb;
+            "
+          >
+            <option value="">All areas</option>
+            <option>Kangaru</option>
+            <option>Gakwegori</option>
+            <option>Iveche</option>
+            <option>Kamiu</option>
+            <option>Koi Mugo</option>
+            <option>Kayole</option>
+            <option>Spring Valley</option>
+            <option>Bagik Area</option>
+            <option>Blue Valley</option>
+            <option>Calvidas Area</option>
+          </select>
+        </div>
+      </aside>
+    </main>
+
+    <div class="container">
+      <h2>Available Houses</h2>
+      <div class="grid" id="houseGrid"></div>
+    </div>
+
+    <script>
+      const houses = Array.from({ length: 20 }, (_, i) => ({
+        name: `Apartment ${i + 1}`,
+        area: [
+          "Kangaru",
+          "Gakwegori",
+          "Iveche",
+          "Kamiu",
+          "Koi Mugo",
+          "Kayole",
+          "Spring Valley",
+          "Bagik Area",
+          "Blue Valley",
+          "Calvidas Area",
+        ][i % 10],
+        img: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=60",
+      }));
+      const params = new URLSearchParams(window.location.search);
+      const filter = params.get("area");
+      const filtered = filter
+        ? houses.filter((h) => h.area === filter)
+        : houses;
+      const grid = document.getElementById("houseGrid");
+      filtered.forEach((h) => {
+        grid.innerHTML += `
+  <div class='house'>
+  <img src='${h.img}' />
+  <p>${h.name} - ${h.area}</p>
+  </div>`;
+      });
+    </script>
+
+    <footer>© <strong>2025 Caren Houses Embu</strong></footer>
+
+    <script>
+      // quick area selection -> navigate to houses page with query
+      const areaSelect = document.getElementById("areaSelect");
+      areaSelect &&
+        areaSelect.addEventListener("change", () => {
+          const val = areaSelect.value;
+          const url = val
+            ? `index.html?area=${encodeURIComponent(val)}`
+            : "index.html";
+          window.location.href = url;
+        });
+    </script>
+  </body>
+</html>
